@@ -3,7 +3,7 @@ import { HiChevronRight, HiFolder, HiDocument } from "react-icons/hi";
 import { cx } from "../utils/cx";
 import { useState } from "react";
 
-export function Node({ name, nodes }: INode) {
+export function FileSystemNode({ name, nodes }: INode) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -37,7 +37,11 @@ export function Node({ name, nodes }: INode) {
       {isOpen && nodes && nodes.length > 0 && (
         <ul className="pl-5">
           {nodes.map((node) => (
-            <Node name={node.name} nodes={node.nodes} key={node.name} />
+            <FileSystemNode
+              name={node.name}
+              nodes={node.nodes}
+              key={node.name}
+            />
           ))}
         </ul>
       )}

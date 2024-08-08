@@ -1,11 +1,11 @@
-import { FileSystem } from "./components/FileSystem";
+import { FileSystemTree } from "./components/FileSystemTree";
 import type { INode } from "./types";
 import { generateNodes } from "./utils/generate-nodes";
 
 export default function App() {
   return (
-    <div className="p-4">
-      <FileSystem nodes={nodes} />
+    <div className="p-4 flex flex-col gap-2">
+      <FileSystemTree nodes={nodes} />
     </div>
   );
 }
