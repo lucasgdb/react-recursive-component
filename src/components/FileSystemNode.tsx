@@ -6,35 +6,48 @@ import { useState } from "react";
 export function FileSystemNode({ name, nodes }: INode) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const isFolder = nodes && nodes.length >= 0;
+
+  const handleClick = () => {
+    if (!isFolder) {
+      return;
+    }
+
+    setIsOpen((prevIsOpen) => !prevIsOpen);
+  };
+
   return (
     <li className="my-1.5">
-      <span className="flex items-center gap-1">
-        {nodes && nodes.length > 0 && (
-          <button onClick={() => setIsOpen((prevIsOpen) => !prevIsOpen)}>
+      <button
+        onClick={handleClick}
+        className={cx(!isFolder && "cursor-default")}
+      >
+        <span className="flex items-center gap-1">
+          {isFolder && (
             <HiChevronRight
               className={cx(
                 "size-4 text-gray-500 transition-all",
                 isOpen && "rotate-90"
               )}
             />
-          </button>
-        )}
+          )}
 
-        {nodes ? (
-          <HiFolder
-            className={cx(
-              "size-6 text-sky-500",
-              nodes && nodes.length === 0 && "ml-[10px]"
-            )}
-          />
-        ) : (
-          <HiDocument className="ml-[18px] size-6 text-gray-900" />
-        )}
+          {isFolder ? (
+            <HiFolder
+              className={cx(
+                "size-6 text-sky-500",
+                nodes && nodes.length === 0 && "ml-[10px]"
+              )}
+            />
+          ) : (
+            <HiDocument className="ml-[18px] size-6 text-gray-900" />
+          )}
 
-        {name}
-      </span>
+          {name}
+        </span>
+      </button>
 
-      {isOpen && nodes && nodes.length > 0 && (
+      {isOpen && isFolder && (
         <ul className="pl-5">
           {nodes.map((node) => (
             <FileSystemNode
